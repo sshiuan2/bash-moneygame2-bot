@@ -1,0 +1,4 @@
+bot/
+lib/jq
+sftp-config.json
+test.sh

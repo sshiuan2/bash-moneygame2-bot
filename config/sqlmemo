@@ -1,0 +1,12 @@
+UPDATE role SET name='<a>', msg='<script>alert('Q_Q')</sciprt>',
+img='default@p0000' WHERE id=35001___ 
+
+id
+name
+msg
+img
+group_donate
+
+UPDATE `group` SET donate_total=2147488898 WHERE d=1041___
+
+KuSimon sim94320367@yahoo.com.tw
