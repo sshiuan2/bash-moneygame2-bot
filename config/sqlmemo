@@ -1,5 +1,7 @@
 UPDATE role SET name='<a>', msg='<script>alert('Q_Q')</sciprt>',
 img='default@p0000' WHERE id=35001___ 
+UPDATE role SET msg='<a href="https://github.com/up9cloud/bash-moneygame2-bot">我超2</a>' WHERE id=35171___
+SELECT * FROM role_product_update WHERE id=35651 AND site=___
 
 id
 name
@@ -10,3 +12,9 @@ group_donate
 UPDATE `group` SET donate_total=2147488898 WHERE d=1041___
 
 KuSimon sim94320367@yahoo.com.tw
+
+
+mission object var
+ex:
+RoleCM: 0RoleTp: 0TechTime: 0TechTp: 0absorb: 0accuracy: 0att: 0cost: 100cri: 0d: 790581def: 0dodge: 0donate: 0exhence_val: 0exp: 0extend_num: "g"item_1: 0item_1_qun: 0item_2: 0item_2_qun: 0item_3: 0item_3_qun: 0item_need: 0kind: 0lv: 0lv_limit: 0potential: "absorb"price: 10qun: 0tp: 0val: 1
+

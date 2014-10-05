@@ -9,17 +9,15 @@
 #invest mail read
 #attr=set_read&read=3896091&id=
 
-#物品->使用(喝藥水)
-#attr=value_eat&d=710305&dd=dd&page=n&id=
-
 #交易->個人商品->買入
 #attr=market_buy_run&d=700401&dd=300&ddd=1&id=
 # {"msg":"y","WordKind":"SendMailY","state":"remain_1_0","bill":"des_money_300","d":2233151,"list_me":"none","list":[{"d":"795911","id":"15741","server":"1","name":"\u9752\u82b1","kind":"1","num":"700401","count":"20","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"},{"d":"796431","id":"34841","server":"1","name":"Yan Jingming","kind":"1","num":"700401","count":"40","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"},{"d":"795921","id":"15741","server":"1","name":"\u9752\u82b1","kind":"1","num":"700401","count":"20","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"}],"now_page":1,"max_page":12}
 
-#安裝傢俱
-#attr=home_input&d=720305&id=
-# {"d":"34691","id":"35651","tp_num":"720101","tp_val":"100","tp_time":"0:19:44:44:","hp_num":"0","hp_val":"0","hp_time":"0:0:0:0:","learn_num":"720305","learn_time":"0:24:0:0:","learn_val":"150","exp_num":"720405","exp_val":"900","exp_time":"0:23:28:28:","msg":"y"}
-# {"msg":"no_product"}
+
+#脫裝備
+#attr=equip_output&d=145151&id=
+# {"msg":"y","item_d":2240461,"site":null}
+# {"msg":"no_equip"}
 
 #讀adventure地圖
 #attr=adventure_info&id=
@@ -113,23 +111,24 @@ class_api(){
 		local url=$1;
 		local params=$2;
 		local curl_params="--compressed --silent";
-
-		#-H "Pragma: no-cache"
-		#php and .net session are not nessisary.
-		#-H "Cookie: ARRAffinity=xxx; PHPSESSID=xxx" \
-		local response=$(\
-			curl "${url}?${params}" \
-			-H "Accept-Encoding: gzip,deflate" \
-			-H "Accept-Language: zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4" \
-			-H "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36" \
-			-H "Accept: application/json, text/javascript, */*; q=0.01" \
-			-H "Referer: https://funto.azurewebsites.net/moneygame2/app/" \
-			-H "X-Requested-With: XMLHttpRequest" \
-			-H "Connection: keep-alive" \
-			-H "Cache-Control: no-cache" \
-			$curl_params
+		local headers=(
+			"Accept-Encoding: gzip,deflate"
+			"Accept-Language: zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4"
+			"User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537"
+			"Accept: application/json, text/javascript, */*; q=0.01"
+			"Referer: https://funto.azurewebsites.net/moneygame2/app/"
+			"X-Requested-With: XMLHttpRequest"
+			"Connection: keep-alive"
+			"Cache-Control: no-cache"
 			);
-		#
+		local header;
+		local cmd="curl \"${url}?${params}\"";
+		for header in "${headers[@]}";do
+			# echo $header;
+			cmd+=" -H \"$header\"";
+		done
+		cmd+=" $curl_params";
+		response=$(eval $cmd);
 		echo $response;
 	}
 
@@ -178,6 +177,19 @@ class_api(){
 		# {"msg":"y","post":{"attr":"set_name","name":"5","msg":"<pre>5<\/pre>","img":"default@p0000","id":"e4da3b7fbbce2345d7772b0674a318d5"}}
 	}
 
+	#名言->修改
+	function callApi_edit_msg(){
+		local url=$(getUrl);
+		local id=$(getId);
+		local attr=$1;
+		local d=$2; #msg
+		local params="attr=${attr}&d=${d}&id=${id}";
+
+		local response=$(curlWithParams $url $params);
+		echo $response;
+		# {"msg":"y"}
+	}
+
 	#新手任務
 	function callApi_set_mission(){
 		local url=$(getUrl);
@@ -218,9 +230,11 @@ class_api(){
 		local response=$(curlWithParams $url $params);
 		echo $response;
 		# {"msg":"y","mission_state":"n","mission_num":2,"mission_info":"lv_4","mission_bonus":"money_5000;700101_6","mission_bonus_extend":0,"bill":"add_795201_2_544771","mission_lastupdate":0,"mission_get":"y"}
+		# {"msg":"y","mission_state":"n","mission_num":2,"mission_info":"lv_4","mission_bonus":"money_5000;700101_6","mission_bonus_extend":0,"bill":"add_795201_2_546891","mission_lastupdate":0,"mission_get":"y"}
 		# {"msg":"no_safe"}
 	}
 
+	#get角色資料
 	function callApi_role_data(){
 		local url=$(getUrl);
 		local id=$(getId);
@@ -232,7 +246,7 @@ class_api(){
 		echo $response;
 	}
 
-	#角色資料更新
+	#reload角色資料
 	function callApi_role_refresh(){
 		callApi_role_data $@;
 	}
@@ -242,9 +256,10 @@ class_api(){
 		# {"vit":{"base":200},"foc":{"base":0.003},"kno":{"base":0},"qui":{"base":0},"drug_lastupdate":0,"blood_lastupdate":0}
 	}
 
-	#對話
+	#get對話
 	function callApi_mission_talk_state(){
 		callApi_role_data $@;
+		# ""
 	}
 
 	#每日獎勵
@@ -289,12 +304,47 @@ class_api(){
 		# {"msg":"n"}
 	}
 
+	#穿裝備
+	function callApi_equip_input(){
+		local url=$(getUrl);
+		local id=$(getId);
+		local attr=$1;
+		local d=$2; #item_d
+		#part on body
+		#w: weapon
+		local dd=$3;
+
+		local params="attr=${attr}&d=${d}&dd=${dd}&id=${id}";
+
+		local response=$(curlWithParams $url $params);
+		echo $response;
+		# {"msg":"y","d":145241,"list":[{"d":"2240341","num":"730201","count":"1","lv":"0","state":"w"},{"d":"2240461","num":"730101","count":"1","lv":"0","state":"w"}],"max_page":1,"now_page":1}
+		# SELECT * FROM role_product_update WHERE id=35651 AND site=___
+	}
+
+	#公司->公司指令->公司公告->(修改)
+	function callApi_group_announce(){
+		local url=$(getUrl);
+		local id=$(getId);
+		local attr=$1;
+		local post=$2;
+		local kind=; #introduction, business_announce, war_announce
+
+		local params="attr=${attr}&post=${post}&kind=${kind}&id=${id}";
+
+		local response=$(curlWithParams $url $params);
+		echo $response;
+	}
+
+
+	#公司->增加貢獻度
 	function callApi_group_donate_role_add(){
 		local url=$(getUrl);
 		local id=$(getId);
 		local attr=$1;
-		local d=35171;
-		local dd=9999; #amount
+		local d=$2; #35171
+		local dd=$3; #amount
+		#local dd=9999;
 		#local dd=65536
 		#local dd=16777216;
 		#local dd=2147483647;
@@ -320,74 +370,74 @@ class_api(){
 		# {state: "n"} => 未投資n,已投資y
 		#list: [xxx,bbb]
 		#res example
-#已投資
-# AddMoney: "270"
-# BackMoney: "1770"
-# ReadState: "1"
-# attachment: ""
-# begin_sec: "1412259368"
-# bonus: "18"
-# bonus_max: "0"
-# bonus_min: "0"
-# cata: "investment"
-# cata_id: "665471"
-# checks: "0"
-# content: "ch&3&0"
-# country: "ch"
-# d: "3859341"
-# end_date: "10/05 12:16"
-# end_sec: "1412511368"
-# expire_sec: "1412302039"
-# expire_time: "10/03 10:07"
-# from_id: "0"
-# from_name: "ch&3"
-# hour: "35"
-# id: "35171"
-# kind: "3"
-# lastupdate: "1412258839"
-# lv: "0"
-# money: "4500"
-# pic: "p1040"
-# state: "y"
-# times: "2"
-# timestamp: "2014-10-04 02:06:20"
-# title: "ch&3&0"
-# to_id: "35171"
-# to_name: "1"
-#未投資
-# AddMoney: "420"
-# BackMoney: "3420"
-# ReadState: "0"
-# attachment: ""
-# begin_sec: "0"
-# bonus: "14"
-# bonus_max: "0"
-# bonus_min: "0"
-# cata: "investment"
-# cata_id: "670411"
-# checks: "0"
-# content: "fr&3&0"
-# country: "fr"
-# d: "3890761"
-# end_date: "01/01 00:00"
-# end_sec: "0"
-# expire_sec: "1412464627"
-# expire_time: "10/05 07:17"
-# from_id: "0"
-# from_name: "fr&3"
-# hour: "29"
-# id: "35251"
-# kind: "3"
-# lastupdate: "1412421427"
-# lv: "0"
-# money: "6000"
-# pic: "p1040"
-# state: "n"
-# times: "2"
-# timestamp: "2014-10-04 11:17:08"
-# title: "fr&3&0"
-# to_id: "35251"
-# to_name: "3"
+		#已投資
+		# AddMoney: "270"
+		# BackMoney: "1770"
+		# ReadState: "1"
+		# attachment: ""
+		# begin_sec: "1412259368"
+		# bonus: "18"
+		# bonus_max: "0"
+		# bonus_min: "0"
+		# cata: "investment"
+		# cata_id: "665471"
+		# checks: "0"
+		# content: "ch&3&0"
+		# country: "ch"
+		# d: "3859341"
+		# end_date: "10/05 12:16"
+		# end_sec: "1412511368"
+		# expire_sec: "1412302039"
+		# expire_time: "10/03 10:07"
+		# from_id: "0"
+		# from_name: "ch&3"
+		# hour: "35"
+		# id: "35171"
+		# kind: "3"
+		# lastupdate: "1412258839"
+		# lv: "0"
+		# money: "4500"
+		# pic: "p1040"
+		# state: "y"
+		# times: "2"
+		# timestamp: "2014-10-04 02:06:20"
+		# title: "ch&3&0"
+		# to_id: "35171"
+		# to_name: "1"
+		#未投資
+		# AddMoney: "420"
+		# BackMoney: "3420"
+		# ReadState: "0"
+		# attachment: ""
+		# begin_sec: "0"
+		# bonus: "14"
+		# bonus_max: "0"
+		# bonus_min: "0"
+		# cata: "investment"
+		# cata_id: "670411"
+		# checks: "0"
+		# content: "fr&3&0"
+		# country: "fr"
+		# d: "3890761"
+		# end_date: "01/01 00:00"
+		# end_sec: "0"
+		# expire_sec: "1412464627"
+		# expire_time: "10/05 07:17"
+		# from_id: "0"
+		# from_name: "fr&3"
+		# hour: "29"
+		# id: "35251"
+		# kind: "3"
+		# lastupdate: "1412421427"
+		# lv: "0"
+		# money: "6000"
+		# pic: "p1040"
+		# state: "n"
+		# times: "2"
+		# timestamp: "2014-10-04 11:17:08"
+		# title: "fr&3&0"
+		# to_id: "35251"
+		# to_name: "3"
 		#
 	}
 
@@ -396,12 +446,14 @@ class_api(){
 		local url=$(getUrl);
 		local id=$(getId);
 		local attr=$1;
-		local d=$1; #bond id;
+		local d=$2; #bond id;
 		local page=n;
 		local params="attr=${attr}&d=${d}&page=${page}&id=${id}";
 
 		local res=$(curlWithParams $url $params);
 		echo $res;
+		# {"msg":"y","bill":"des_money_750","WordKind":"y_Invest","CountryVal":"country_lv","CountryLv":"1"}
+		# {"msg":"InvestRepeat"}
 	}
 
 	#信箱->一鍵領取
@@ -417,13 +469,45 @@ class_api(){
 		echo $res;
 	}
 
+	#安裝傢俱
+	function callApi_home_input(){
+		local url=$(getUrl);
+		local id=$(getId);
+		local attr=$1;
+		local d=$2;
+
+		local params="attr=${attr}&d=${d}&id=${id}";
+
+		local res=$(curlWithParams $url $params);
+		echo $res;
+		# {"d":"34691","id":"35651","tp_num":"720101","tp_val":"100","tp_time":"0:19:44:44:","hp_num":"0","hp_val":"0","hp_time":"0:0:0:0:","learn_num":"720305","learn_time":"0:24:0:0:","learn_val":"150","exp_num":"720405","exp_val":"900","exp_time":"0:23:28:28:","msg":"y"}
+		# {"msg":"no_product"}
+	}
+
+	#物品->使用(喝藥水)
+	function callApi_value_eat(){
+		local url=$(getUrl);
+		local id=$(getId);
+		local attr=$1;
+		local d=$2;
+		local dd=$3;
+		local page=n;
+
+		local params="attr=${attr}&d={d}&dd=${dd}&page=${page}&id=${id}";
+
+		local res=$(curlWithParams $url $params);
+		echo $res;
+		# {"kno":{"base":0.5},"qui":{"base":10000},"msg":"y","vit":{"base":200},"foc":{"base":0.003},"exp":{"exp":10.15,"lv":2,"exp_now":0.15},"bill":"add_qui_0.15_2","max":12,"key":"qui","drug_lastupdate":3600,"blood_lastupdate":0}
+	}
+
+
 	#商城買
 	function callApi_shop_buy(){
 		local url=$(getUrl);
 		local id=$(getId);
 		local attr=$1;
-		local d=$1; #item_id 790604
-		local dd=$2; #amount?
+		local d=$2; #item_id 790604
+		local dd=$3; #amount?
 		local params="attr=${attr}&d=${d}&dd=${dd}&id=${id}";
 
 		local res=$(curlWithParams $url $params);
@@ -496,6 +580,32 @@ class_api(){
 		callApi_market_buy_list $@;
 	}
 
+	#製造物品
+	function callApi_produce_create(){
+		local url=$(getUrl);
+		local id=$(getId);
+		local attr=$1;
+		local d=$2;
+		local page=n;
+
+		local params="attr=${attr}&d=${d}&page=${page}&id=${id}";
+
+		local response=$(curlWithParams $url $params);
+		echo $response;
+		# {
+		# 	"d":"2240461","msg":"y",
+		# 	"proficiency":{"exp":2,"lv":1,"exp_max":25},
+		# 	"WordKind":"SendMailY",
+		# 	"add_item":"",
+		# 	"player":{"name":"\u98ef\u5305\u5927\u5927","d":1122,"img":"","lv":1},
+		# 	"bill":"des_tp_400;des_money_2400",
+		# 	"lv":5,
+		# 	"exp":80,
+		# 	"LvUp_TpAdd":2500,
+		# 	"Rate_add":0
+		# }
+	}
+
 	function callApi_adventure_run(){
 		local url=$(getUrl);
 		local id=$(getId);
@@ -519,7 +629,7 @@ class_api(){
 		local ci=$1; #monster id
 		#normal=0
 		#accuracy=15
-		#cri=25
+		#cri=20
 		#slay=30
 		#daze=25
 		local kind=$2; #skill name
@@ -527,9 +637,10 @@ class_api(){
 
 		local response=$(curlWithParams $url $params);
 		echo $response;
-		# {e: {hp_now:-182}}
+		# {msg: "y",e: {hp_now:-182}}
 		#normal, win, lose
-		# {"state":["lose"]}
+		# {msg: "y","state":["lose"]}
+		# {"msg":"\u975e\u6307\u5b9a\u6280\u80fd"}
 	}
 
 	#開競技場
@@ -551,8 +662,8 @@ class_api(){
 	function callApi__vslive_run_role(){
 		local url="https://funto.azurewebsites.net/moneygame2/php/_vslive_run_role.php";
 		local id=$(getId);
-		local ci=35651; #charactor id
-		local kind=normal;
+		local ci=$1; #charactor id
+		local kind=$2; #normal
 
 		local params="ci=${ci}&kind=${kind}&id=${id}";
 
