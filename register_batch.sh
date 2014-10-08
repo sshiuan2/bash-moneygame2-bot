@@ -1,6 +1,12 @@
 
 core_file="bot.sh";
 
+name_prefix="";
+name_subfix="";
+
+password=password;
+comp_id=1051;
+
 if [ -z "$1" ];then
 	bot_from=1;
 else
@@ -13,14 +19,8 @@ else
 	bot_to=$2;
 fi
 
-name_prefix="b_";
-name_subfix="";
-
-password=password;
-comp_id=1051;
-
 for (( i = $bot_from; i <= $bot_to; i++ )); do
-	bot_name="$nameprefix$i$name_subfix";
+	bot_name="$name_prefix$i$name_subfix";
 
 	if [ -f "bot/$bot_name" ];then
 		echo "bot/$bot_name is already exist.";
