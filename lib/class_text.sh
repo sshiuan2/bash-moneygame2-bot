@@ -26,6 +26,7 @@ class_text(){
 		echo '	<param in this>: essential params';
 		echo '	[param in this]: optional params';
 		echo 'Usage:'
-		echo '	money.sh <$bot_number> [$api_name] [$api_arg1] [$api_arg2]...';
+		echo './bot.sh <$bot_number> [$api_name] [$api_arg1] [$api_arg2]...';
+		echo './bot.sh $account_name register $password';
 	}
 }
