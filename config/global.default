@@ -6,7 +6,7 @@ idle_interval=600
 default_event=adventure_run
 
 #when tp not enough, auto buy the 12000 potion or not
-#methods: auto_buy, nothing
+#methods: auto_buy, nothing, stop
 no_tp_handle_method=nothing
 
 #地圖種類
@@ -43,5 +43,6 @@ adventure_mode=search
 #sell, donate, nothing
 item_handle=donate
 
+#if donate failed, then do?
 #nothing, recycle
 item_donate_fail_handle=recycle

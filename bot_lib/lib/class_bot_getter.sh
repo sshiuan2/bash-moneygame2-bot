@@ -11,7 +11,7 @@ class_bot_getter(){
 		local delay;
 		local random_range="${__g[random_interval]}";
 		local random;
-		if [ -z "$random_range" ];then
+		if [ "$random_range" == "0" ];then
 			random=$((RANDOM % 1));
 		else
 			random=$((RANDOM % $random_range));

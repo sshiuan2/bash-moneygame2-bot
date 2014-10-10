@@ -31,8 +31,7 @@ _bot_item_handle(){
 
 		if [ "$msg" != "y" ];then
 			if [ "${__g[item_donate_fail_handle]}" == "recycle" ];then
-				api=equip_drop;
-				callStandardApi $api $item_id default $count all;
+				_bot_drop_item $item_id $count;
 			fi
 		fi
 
@@ -48,25 +47,59 @@ _bot_item_handle(){
 	esac
 }
 
+_bot_trade(){
+	local api;
+	local res;
+	local err;
 
+	local action=$1; #buy or sell
+	local item_id=$2;
+	local price=$3;
+	local amount=$4;
+
+	case $action in
+		buy )
+		#
+		api=market_buy_run;
+		;;
+		sell )
+		#
+		api=market_sell_run;
+		;;
+		auto_sell)
+		#
+		api=market_sell_run_auto;
+		;;
+	esac
+
+	res=$(callStandardApi $api $item_id $price $amount);
+	err=$?
+	echo $res;
+	return $err;
+}
 _bot_buy(){
 	local api;
 	local res;
 	local err;
 
 	local item_id=$1;
+
+	#buy and use 790103
+	local method;
+
 	local amount=$2;
 	if [ "$2" == "" ];then
 		amount=1;
 	fi
 
-	#buy and use 790103
-	local method;
+	#790201 buy 1 other
+	local type;
 
 	api=shop_using;
 	method=buy;
+	type=other;
 
-	res=$(callStandardApi $api $item_id $method $amount);
+	res=$(callStandardApi $api $item_id $method $amount $type);
 	err=$?
 	echo $res;
 	return $err;
@@ -78,7 +111,7 @@ _bot_eat(){
 
 	local item_id=$1;
 	local amount=$2;
-	if [ "$2" == "" ];then
+	if [ "$amount" == "" ];then
 		amount=1;
 	fi
 
@@ -88,4 +121,55 @@ _bot_eat(){
 	err=$?
 	echo $res;
 	return $err;
+}
+_bot_make(){
+	local jqPath=$(getJqPath);
+	local api=produce_create;
+	local res;
+	local err;
+	local err_msg;
+
+	local item_id=$1;
+	local amount=$2;
+	if [ "$amount" == "" ];then
+		amount=1;
+	fi
+
+	local count=0;
+	for ((i=1;i<=$amount;i++)); do
+		res=$(callStandardApi $api $item_id);
+		err=$?
+		echo $res;
+		echo "err code: $err";
+
+		# if [ $err != 0 ] ;then
+		# 	break;
+		# fi
+
+		err_msg=$(echo $res|$jqPath ".msg");
+		err_msg=${err_msg:1:-1};
+
+		if [ "$err_msg" != y ];then
+			break;
+		fi
+
+		((count++));
+	done
+
+	echo produced: $item_id x $count;
+	return $err;
+}
+_bot_drop_item(){
+	local jqPath=$(getJqPath);
+	local api=equip_drop;
+	local res;
+	local err;
+
+	local item_id=$1;
+	local count=$2;
+
+	local item_type=default;
+	local handle_type=all;
+	res=$(callStandardApi $api $item_id default $count $handle_type);
+	echo $res|$jqPath "{state,msg}";
 }

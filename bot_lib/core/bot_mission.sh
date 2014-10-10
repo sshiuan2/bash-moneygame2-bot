@@ -5,7 +5,7 @@ _bot_loop_set_main_mission(){
 	local err_msg;
 
 	while true ;do
-		res=$(callStandardApi $api main);
+		res=$(_bot_set_main_mission);
 		echo $res;
 		err_msg=$(echo $res|$jqPath ".msg");
 		err_msg=${err_msg:1:-1};
@@ -13,36 +13,39 @@ _bot_loop_set_main_mission(){
 			break;
 		fi
 	done
+	return 0;
 }
 
-
-_bot_run_newbie_main_missions(){
-	local jqPath=$(getJqPath);
-	local api;
+_bot_set_main_mission(){
+	local api=set_main_mission;
 	local res;
-	local err;
 
+	res=$(callStandardApi $api main);
+	echo $res;
+	return 0;
+}
+
+_bot_run_main_mission(){
+	local mission_id=$1;
+	echo "start main mission: $mission_id";
+	_bot_set_main_mission;
+	_bot_run_main_mission_$mission_id;
+	_bot_set_main_mission;
+	echo "end main mission: $mission_id";
+}
+
+_bot_run_main_mission_1(){
+	echo map_1_2;
+}
+_bot_run_main_mission_2(){
+	echo lv_4;
+}
+_bot_run_main_mission_3(){
+	local api;
 	local item_d;
-	local adventure_mode=search;
 
-	# newbie main mission flow:
-	# mission 1 add potential or lv3?
-	# "mission_num":2,"mission_info":"lv_4"
-	# "mission_num":3,"mission_info":"item_730101_1" 獵刀
-	# "mission_num":6,"mission_info":"qui_2"
-	# "mission_num":7,"mission_info":"lv_6"
-	# "mission_num":8,"mission_info":"home_7201"
+	echo item_730101_1;
 
-	#try run all level.
-	_bot_adventure_complete_map_handle 1 $adventure_mode;
-
-	api=add_potential;
-	#add p_840009 first to save tp
-	callStandardApi $api p_840009 search;
-
-	_bot_loop_set_main_mission;
-
-	echo "start mission 3 獵刀";
 	#must add p_830001 1 to produce 獵刀
 	api=add_potential;
 	callStandardApi $api p_830001 produce;
@@ -51,35 +54,114 @@ _bot_run_newbie_main_missions(){
 	echo $res;
 	item_d=$(echo $res|$jqPath '.d');
 
-	_bot_loop_set_main_mission;
+	_bot_set_main_mission;
 
 	api=equip_input;
 	res=$(callStandardApi $api $item_d w);
 	echo $res;
-	echo "end mission 3";
+}
+_bot_run_main_mission_4(){
+	echo "equip_7301 but 3 is done";
+}
+_bot_run_main_mission_5(){
+	echo "lv_5";
+}
+_bot_run_main_mission_6(){
+	local api=value_eat;
 
-	_bot_loop_set_main_mission;
-	_bot_adventure_complete_map_handle 1 $adventure_mode;
+	echo qui_2;
 
-	echo "start mission 6 drink qui_2";
 	#main mission: need eat 710601.
-	api=value_eat;
 	callStandardApi $api 710601 dd;
-	echo "end mission 6";
+}
+_bot_run_main_mission_7(){
+	echo "lv_6";
+}
+_bot_run_main_mission_8(){
+	local api=home_input;
+	_bot_set_main_mission;
 
-	echo "start mission 8 equip home_7201";
+	echo home_7201;
 	#main mission: mount furniture
-	api=home_input;
 	callStandardApi $api 720101;
-	echo "end mission 8";
-
-	_bot_loop_set_main_mission;
-
-	_bot_check_achievements_and_get_reward newbie;
-
+}
+_bot_run_main_mission_9(){
+	echo "map_1_5";
+}
+_bot_run_main_mission_10(){
+	echo "map_2_1";
+}
+_bot_run_main_mission_11(){
+	echo "map_2_3";
+}
+_bot_run_main_mission_12(){
+	echo "map_2_5";
+}
+_bot_run_main_mission_13(){
+	echo "map_3_5";
+}
+_bot_run_main_mission_14(){
+	echo "map_4_5";
+}
+_bot_run_main_mission_15(){
+	echo "map_5_5";
+}
+_bot_run_main_mission_16(){
+	echo "map_6_5";
+}
+_bot_run_main_mission_17(){
+	echo "map_7_5";
+}
+_bot_run_main_mission_18(){
+	echo "map_8_5";
+}
+_bot_run_main_mission_19(){
+	echo "map_9_5";
+}
+_bot_run_main_mission_20(){
+	echo "map_10_5";
+}
+_bot_run_main_mission_21(){
+	echo "map_11_5";
+}
+_bot_run_main_mission_22(){
+	echo "map_12_5";
+}
+_bot_run_main_mission_23(){
+	echo "map_13_5";
+}
+_bot_run_main_mission_24(){
+	echo "map_25_11";
+}
+_bot_run_main_mission_25(){
+	echo "map_25_12";
+}
+_bot_run_main_mission_26(){
+	echo "map_25_13";
+}
+_bot_run_main_mission_27(){
+	echo "map_25_14";
+}
+_bot_run_main_mission_28(){
+	echo "map_25_15";
+}
+_bot_run_main_mission_29(){
+	echo "map_25_16";
+}
+_bot_run_main_mission_30(){
+	echo "map_25_17";
+}
+_bot_run_main_mission_31(){
+	echo "map_25_18";
+}
+_bot_run_main_mission_32(){
+	echo "map_25_19";
+}
+_bot_run_main_mission_33(){
+	echo "map_25_20";
 }
 
-_bot_run_main_missions(){
+_bot_run_newbie_main_missions(){
 	local jqPath=$(getJqPath);
 	local api;
 	local res;
@@ -90,12 +172,21 @@ _bot_run_main_missions(){
 	#try run all level.
 	_bot_adventure_complete_map_handle 1 $adventure_mode;
 
-	#check t_role main_mission
+	#check .t_role.main_mission
+	api=role_refresh;
+	res=$(callStandardApi $api);
+	mission_id=$(echo $res|$jqPath ".t_role.main_mission");
+	mission_id=${mission_id:1:-1};
 
-	api=mission_talk_state;
-	while true ;do
-		break;
-	done
+	if (($mission_id > 8));then
+		echo "mission_id is $mission_id, not nessesary go through".
+	else
+		for ((i=$mission_id;i<=8;i++)); do
+			_bot_run_main_mission $i;
+		done
+	fi
+	return 0;
+	#following talk is not nessesary.
 
 	#conversations
 	api=mission_talk_state;

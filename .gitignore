@@ -2,4 +2,5 @@ bot/
 lib/jq
 sftp-config.json
 test.sh
-memo
+json/
+data/

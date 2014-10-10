@@ -4,14 +4,14 @@
 
 #news.php?lang=ch
 #/rank.php?attr=read_rank&d=tower_max_layer&dd=0&ddd=5&id=
+#tower_max_layer
+
+#attr=shop_order&n1=0&n2=12&id=
+
 #/link.php?attr=pk_info&id=
 
 #invest mail read
 #attr=set_read&read=3896091&id=
-
-#交易->個人商品->買入
-#attr=market_buy_run&d=700401&dd=300&ddd=1&id=
-# {"msg":"y","WordKind":"SendMailY","state":"remain_1_0","bill":"des_money_300","d":2233151,"list_me":"none","list":[{"d":"795911","id":"15741","server":"1","name":"\u9752\u82b1","kind":"1","num":"700401","count":"20","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"},{"d":"796431","id":"34841","server":"1","name":"Yan Jingming","kind":"1","num":"700401","count":"40","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"},{"d":"795921","id":"15741","server":"1","name":"\u9752\u82b1","kind":"1","num":"700401","count":"20","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"}],"now_page":1,"max_page":12}
 
 #脫裝備
 #attr=equip_output&d=145151&id=
@@ -21,54 +21,17 @@
 #讀adventure地圖
 #attr=adventure_info&id=
 
-#battle trigger??
+#公司
 #attr=group_manage_set1&salary_rate=1&employ_rate_now=70&stocker_rate_now=15&id=
 
 #讀世界地圖
 #attr=mapwar_showMap_me&map_size=5&id=
-# {
-#	center_land: {x:3, y:3},
-#	list: [
-#		{
-		# att_exp_max: "6"
-		# att_exp_now: "0"
-		# att_group_d: "0"
-		# att_group_name: ""
-		# att_lv: "0"
-		# bonus_count: "10000"
-		# bonus_kind: "money"
-		# bonus_left: "5000"
-		# bonus_rob: "5000"
-		# combat_d: "0"
-		# combat_lastupdate: "0"
-		# cost: "0"
-		# d: "26176"
-		# def_exp_max: "6"
-		# def_exp_now: "0"
-		# def_group_d: "0"
-		# def_group_name: ""
-		# def_lv: "0"
-		# group_d: "1041"
-		# group_leader: "1"
-		# group_name: "<pre>0</pre>"
-		# hp_exp_max: "6"
-		# hp_exp_now: "0"
-		# hp_lv: "0"
-		# hp_max: "500000"
-		# hp_now: "393852"
-		# hp_tag: "42"
-		# kind: "castle"
-		# mappic: "11"
-		# move_people: ""
-		# now_people: "3_default@p0000_47_<pre>0</pre>_none_35251"
-		# rotate: ""
-		# state: ""
-		# war_lastupdate: "23311"
-		# x: "1"
-		# y: "1"
-#		}
-#	]
-# }
+
+
+#看地圖(移動地圖座標)
+#attr=mapwar_move&map_size=5&x=13&y=19&id=
+# {"x":"12","y":"16","my_land_d":"26518","kind":"space","msg":"y","lastupdate":1134}
+
 
 #宣戰
 #attr=mapwar_declaration&d=26201&id=
@@ -78,52 +41,70 @@
 # {"msg":"no_map_att_no_space"}
 
 #attr=mapwar_attack&d=normal&id=
+# {"att":"none","def":"none","txt":"2_tower_1110_normal_normal;tower_2_196_normal_dynamite","target":"tower","hp_now":509,"hp_max":"5000","lv":"0","msg":"y","lastupdate":20}
+# {"att":"win","def":"lose","txt":"2_tower_1116_normal_normal","target":"tower","hp_now":0,"hp_max":"5000","lv":"0","msg":"y","lastupdate":20}
 
 #放棄據點
 #attr=drop_land&d=26177&id=
 
-#公司->任命
-#90 60 30 20 10
-#attr=group_title_give&d=90&dd=34861&id=
-#attr=group_title_give&d=10&dd=34861&id=
-# {"msg":"group_title_give_over"}
+#公司->殖民->移動玩家
+#attr=mapwar_move_player&d=26176&id=
+
+#時間到呼叫移動停止
+#attr=MoveEnd&x=12&y=21&d=26471&id=
+
+#取消掛賣
+#
+# {"msg":"no_count"}
 
 #公司->捐獻需求->發布需求
+#attr=set_donate_item&kind=70&val=700101_1%3B700102_1%3B700103_1%3B700104_1%3B700105_1%3B700201_1%3B700203_1%3B700204_1%3B700205_1%3B700301_1%3B700302_1%3B700303_1%3B700304_1%3B700305_1%3B700403_1%3B700404_1%3B700405_1%3B700502_1%3B700503_1%3B700504_1%3B700505_1&id=
 # attr:set_donate_item
-# kind:73
-#val:741101_1;741102_1;741103_1;741104_1;741105_1;741201_1;741202_1;741203_1;741204_1;741205_1;741301_1;741302_1;741303_1;741304_1;741305_1;741401_1;741402_1;741403_1;741404_1;741405_1
-#val:730101_1;730102_1;730103_1;730104_1;730105_1;730201_1;730202_1;730203_1;730204_1;730205_1;730301_1;730302_1;730303_1;730304_1;730305_1;730401_1;730402_1;730403_1;730404_1;730405_1;730501_1;730502_1;730503_1;730504_1;730505_1;730601_1;730602_1;730603_1;730604_1;730605_1
-#val:720101_1;720102_1;720103_1;720104_1;720105_1;720201_1;720202_1;720203_1;720204_1;720205_1;720301_1;720302_1;720303_1;720304_1;720305_1;720401_1;720402_1;720403_1;720404_1;720405_1
-#val:710101_1;710102_1;710103_1;710104_1;710105_1;710301_1;710302_1;710303_1;710304_1;710305_1;710401_1;710402_1;710403_1;710404_1;710405_1;710501_1;710502_1;710503_1;710504_1;710505_1;710601_1;710602_1;710603_1;710604_1;710605_1
-#val:700101_1;700102_1;700103_1;700104_1;700105_1;700201_1;700202_1;700203_1;700204_1;700205_1;700301_1;700302_1;700303_1;700304_1;700305_1;700401_1;700402_1;700403_1;700404_1;700405_1;700501_1;700502_1;700503_1;700504_1;700505_1
+# kind:73 (val前2碼)
 # id:
+# INSERT INTO group_donate SET group_d=1051, kind="donate", item_num="a", item_need_qun=999, donate=, priority=___
+
+#開放兌換股票
+#attr=stock_assign_set&point=9999&id=
+# {"msg":"y","Wordkind":"stock_assign_cancel"}
+
+#搜尋公司
+#attr=group_info_search&name=aaa&d=1&id=
 
 #公司->貢獻水晶
 #attr=group_donate_crystal&count=0&id=
 # {"msg":"no_item"}
 
-#公司->殖民->移動玩家
-#attr=mapwar_move_player&d=26176&id=
-
 #使用物品
 #attr=shop_used&d=795161&dd=all&id=
 # {"bill":"add_tp_200","msg":"y","UseCount":1}
 # {"msg":"no_count"}
-#attr=shop_used&d=795101&dd=all&id=
-# {"bill":"add_tp_1000","msg":"y","UseCount":1}
 
 #使用物品(帶數量)
 #使用物品(開寶相)
 #attr=shop_used_count&d=795403&count=1&id=
 # {"msg":"y","bonus_list":{"bill":"add_791627_1_545851"},"UseCount":"1"}
-#curl "https://funto.azurewebsites.net/moneygame2/php/link.php?
+# SELECT * FROM role_product_gold_shop WHERE id=13031 AND num=790403 AND qun >=a___
+
+#attr=pk_info&id=
+# {"score":"2","win":"1","win_continuous":"1","pk_count":"4","rank":"0","lastupdate":301820,"old_record":"win@\u5167\u5fc3\u7684\u6050\u61fc...@0;;","bonus_state":"0","list":{"name":"\u958b\u5bf6\u7bb1","img":"default@p0002","win_continuous":"302","group_name":"YAMI","msg":"","id":"10951","d":1}}
+
+#msg read.(music?)
+#attr=sm_set&d=2&dd=2&id=
+# UPDATE role_set SET sound=2, music=\' WHERE id=35171___
+# {"state":"n","msg":"y","text":"\u975e\u6cd5\u9032\u5165!!"}
+
+#寄信
+#attr=write_mail&name=2&subject=%40%40&content=%40%40&id=
+# {"msg":"y"}
+# {"msg":"no_role"}
 
 class_game_api(){
 
-	class_api_var_counter_name="__g";
+	class_game_api_var_counter_name="__g";
 
 	function getUserId(){
-		local var=$class_api_var_counter_name[id];
+		local var=$class_game_api_var_counter_name[id];
 		local id=${!var};
 		echo $id;
 	}
@@ -132,9 +113,43 @@ class_game_api(){
 		echo "https://funto.azurewebsites.net/moneygame2/php/link.php"
 	}
 
+	# function urlencode() {
+	# 	# urlencode <string>
+
+	# 	local length="${#1}"
+	# 	for (( i = 0; i < length; i++ )); do
+	# 		local c="${1:i:1}"
+	# 		case $c in
+	# 			[a-zA-Z0-9.~_-]) printf "$c" ;;
+	# 			#
+	# 			*) printf '%%%02X' "'$c"
+	# 			#
+	# 		esac
+	# 	done
+	# }
+
+	function urlencode () {
+		local tab="`echo -en "\x9"`"
+		local i="$@"
+		i=${i//%/%25}  ; i=${i//' '/%20} ; i=${i//$tab/%09}
+		i=${i//!/%21}  ; i=${i//\"/%22}  ; i=${i//#/%23}
+		i=${i//\$/%24} ; i=${i//\&/%26}  ; i=${i//\'/%27}
+		i=${i//(/%28}  ; i=${i//)/%29}   ; i=${i//\*/%2a}
+		i=${i//+/%2b}  ; i=${i//,/%2c}   ; i=${i//-/%2d}
+		i=${i//\./%2e} ; i=${i//\//%2f}  ; i=${i//:/%3a}
+		i=${i//;/%3b}  ; i=${i//</%3c}   ; i=${i//=/%3d}
+		i=${i//>/%3e}  ; i=${i//\?/%3f}  ; i=${i//@/%40}
+		i=${i//\[/%5b} ; i=${i//\\/%5c}  ; i=${i//\]/%5d}
+		i=${i//\^/%5e} ; i=${i//_/%5f}   ; i=${i//\`/%60}
+		i=${i//\{/%7b} ; i=${i//|/%7c}   ; i=${i//\}/%7d}
+		i=${i//\~/%7e} 
+		echo "$i";
+	}
+
 	function curlWithParams(){
 		local url=$1;
 		local params=$2;
+		# echo $params;
 		local curl_params="--compressed --silent";
 		local headers=(
 			"Accept-Encoding: gzip,deflate"
@@ -153,20 +168,26 @@ class_game_api(){
 			cmd+=" -H \"$header\"";
 		done
 		response=$(eval $cmd);
+		local err=$?;
 		echo $response;
+		return $err;
 	}
 
 	function callStandardApi(){
 		local response=$(callApi_$1 $@);
+		local err=$?;
 		echo $response;
-		(($class_api_var_counter_name[total_callApi_times]++));
+		(($class_game_api_var_counter_name[total_callApi_times]++));
+		return $err;
 	}
 
 	function callApi_login(){
 		local url="https://funto.azurewebsites.net/moneygame2/php/login.php";
+
 		local attr=$1;
-		local account=$2;
+		local account=$(urlencode $2);
 		local password=$3;
+
 		local server=1;
 		local from=funto;
 		local reg_state=y;
@@ -187,6 +208,7 @@ class_game_api(){
 		# 	msg: "r"
 		# 	role_name: "NoBody"
 		# }
+		# {"msg":"n","text":"Errop_Password"}
 	}
 
 	#改名
@@ -194,13 +216,17 @@ class_game_api(){
 		local url=$(getUrl);
 		local id=$(getUserId);
 		local attr=$1;
+
 		local name=$2;
 		local msg=$3;
 		local img=$4;
+
 		local params="attr=${attr}&name=${name}&msg=${msg}&img=${img}&id=${id}";
 
 		local response=$(curlWithParams $url $params);
+		local err=$?
 		echo $response;
+		return $err;
 		# {"msg":"y","post":{"attr":"set_name","name":"5","msg":"<pre>5<\/pre>","img":"default@p0000","id":""}}
 		# {"msg":"Double_Name","post":{"attr":"set_name","name":"<pre><\/pre>","msg":"<pre><\/pre>","img":"","id":""}}
 	}
@@ -216,6 +242,7 @@ class_game_api(){
 		local response=$(curlWithParams $url $params);
 		echo $response;
 		# {"msg":"y"}
+		# UPDATE role SET msg='' WHERE id=35171___
 	}
 
 	#新手任務
@@ -278,13 +305,19 @@ class_game_api(){
 	#get角色資料
 	function callApi_role_data(){
 		local url=$(getUrl);
-		local id=$(getUserId);
 		local attr=$1;
+		local id=$2;
+		if [ "$2" == "" ];then
+			id=$(getUserId);
+		else
+			id=$2;
+		fi
 
 		local params="attr=${attr}&id=${id}";
 
 		local response=$(curlWithParams $url $params);
 		echo $response;
+		#UPDATE role SET vip=0 WHERE id=___
 	}
 
 	#get其他角色資料
@@ -370,6 +403,20 @@ class_game_api(){
 		# {"msg":"n"}
 	}
 
+	#領序號獎勵
+	function callApi_SYS_keyBonus(){
+		local url=$(getUrl);
+		local id=$(getUserId);
+		local attr=$1;
+		local d=$2; #key
+
+		local params="attr=${attr}&d=${d}&id=${id}";
+
+		local response=$(curlWithParams $url $params);
+		echo $response;
+		# {"msg":"no_key"}
+	}
+
 	#穿裝備
 	function callApi_equip_input(){
 		local url=$(getUrl);
@@ -377,7 +424,8 @@ class_game_api(){
 		local attr=$1;
 		local d=$2; #item_d
 		#part on body
-		#w: weapon
+		#w: weapon?
+		#nw: 
 		local dd=$3;
 
 		local params="attr=${attr}&d=${d}&dd=${dd}&id=${id}";
@@ -410,7 +458,7 @@ class_game_api(){
 		local id=$(getUserId);
 		local attr=$1;
 
-		local d=$2; #comp_id 1041
+		local d=$2; #comp_id 1051
 
 		local params="attr=${attr}&d=${d}&id=${id}";
 
@@ -419,6 +467,7 @@ class_game_api(){
 		# {"msg":"y","WordKind":"group_join_y","group_teach":"n"}
 		# {"msg":"group_have"}
 		# {"msg":"group_over"}
+		#SELECT * FROM `group` WHERE d=___
 	}
 
 	#公司apply加入
@@ -427,7 +476,7 @@ class_game_api(){
 		local id=$(getUserId);
 		local attr=$1;
 
-		local d=$2; #whom be applied
+		local d=$2; #user_id whom be applied
 		local page=1;
 
 		local params="attr=${attr}&d=${d}&page=${page}&id=${id}";
@@ -437,6 +486,26 @@ class_game_api(){
 		# {"role":{"list":[{"d":"34721","id":"35651","name":"5","lv":"44","group_title":"99","img":"default@p0000","tp_max":"19800","money":"4015464","group_donate":"60","group_login_time":"2014\/10\/05 "},{"d":"34781","id":"35711","name":"4","lv":"34","group_title":"10","img":"default@p0000","tp_max":"20100","money":"14235","group_donate":"0","group_login_time":"2014\/10\/05 "},{"d":"34241","id":"35171","name":"2","lv":"46","group_title":"100","img":"default@p0000","tp_max":"20600","money":"2759286","group_donate":"2147483647","group_login_time":"2014\/10\/05 "},{"d":"34071","id":"35001","name":"0","lv":"30","group_title":"99","img":"default@p0000","tp_max":"90500","money":"392890","group_donate":"1052","group_login_time":"2014\/10\/05 "},{"d":"34321","id":"35251","name":"3","lv":"47","group_title":"99","img":"default@p0000","tp_max":"20000","money":"246081","group_donate":"16479","group_login_time":"2014\/10\/05 "}],"now_page":1,"max_page":1,"wait_count":"0","people_now":"5","people_max":"20"},"role_apply":{"list":"none","now_page":0,"max_page":0,"wait_count":"0","people_now":"5","people_max":"20"},"msg":"y","WordKind":"joinCheck_y"}
 		# {"msg":"no_role"}
 	}
+
+	#公司->任命
+	function callApi_group_title_give(){
+		local url=$(getUrl);
+		local id=$(getUserId);
+		local attr=$1;
+
+		#99 90 60 30 20 10
+		local d=$2; #permission level
+		local dd=$3; #user_id whom be applied
+
+		local params="attr=${attr}&d=${d}&dd=${dd}&id=${id}";
+
+		local response=$(curlWithParams $url $params);
+		echo $response;
+		# {"msg":"y"}
+		# {"msg":"group_title_give_over"}
+		# {"msg":"leader_no_change"}
+	}
+
 
 	#退出公司
 	function callApi_group_role_leave(){
@@ -469,6 +538,7 @@ class_game_api(){
 
 		local response=$(curlWithParams $url $params);
 		echo $response;
+		#UPDATE `group` SET introduction=''' WHERE d=1051___
 	}
 
 	#公司造物品
@@ -485,6 +555,9 @@ class_game_api(){
 		local response=$(curlWithParams $url $params);
 		echo $response;
 		# {"group_create_cold":"0","group_create_cold_gold":"0","Rate_add":0,"group_item":{"700505":{"0":"114081","d":"114081","1":"1051","group_d":"1051","2":"700505","item_num":"700505","3":"66","item_qun":"66","4":"1412615914","lastupdate":"1412615914"},"700405":{"0":"114101","d":"114101","1":"1051","group_d":"1051","2":"700405","item_num":"700405","3":"148","item_qun":"148","4":"1412620270","lastupdate":"1412620270"},"700301":{"0":"114111","d":"114111","1":"1051","group_d":"1051","2":"700301","item_num":"700301","3":"104","item_qun":"104","4":"1412620283","lastupdate":"1412620283"},"700205":{"0":"114121","d":"114121","1":"1051","group_d":"1051","2":"700205","item_num":"700205","3":"14","item_qun":"14","4":"1412622443","lastupdate":"1412622443"},"700305":{"0":"114131","d":"114131","1":"1051","group_d":"1051","2":"700305","item_num":"700305","3":"25","item_qun":"25","4":"1412623515","lastupdate":"1412623515"},"700401":{"0":"114141","d":"114141","1":"1051","group_d":"1051","2":"700401","item_num":"700401","3":"810","item_qun":"810","4":"1412624301","lastupdate":"1412624301"},"700402":{"0":"114151","d":"114151","1":"1051","group_d":"1051","2":"700402","item_num":"700402","3":"999","item_qun":"999","4":"1412624305","lastupdate":"1412624305"},"700302":{"0":"114161","d":"114161","1":"1051","group_d":"1051","2":"700302","item_num":"700302","3":"155","item_qun":"155","4":"1412624324","lastupdate":"1412624324"},"700501":{"0":"114171","d":"114171","1":"1051","group_d":"1051","2":"700501","item_num":"700501","3":"94","item_qun":"94","4":"1412637047","lastupdate":"1412637047"},"700202":{"0":"114181","d":"114181","1":"1051","group_d":"1051","2":"700202","item_num":"700202","3":"171","item_qun":"171","4":"1412624364","lastupdate":"1412624364"},"700101":{"0":"114191","d":"114191","1":"1051","group_d":"1051","2":"700101","item_num":"700101","3":"84","item_qun":"84","4":"1412624410","lastupdate":"1412624410"},"700102":{"0":"114201","d":"114201","1":"1051","group_d":"1051","2":"700102","item_num":"700102","3":"156","item_qun":"156","4":"1412624468","lastupdate":"1412624468"},"700502":{"0":"114211","d":"114211","1":"1051","group_d":"1051","2":"700502","item_num":"700502","3":"125","item_qun":"125","4":"1412624621","lastupdate":"1412624621"},"700201":{"0":"114221","d":"114221","1":"1051","group_d":"1051","2":"700201","item_num":"700201","3":"63","item_qun":"63","4":"1412637047","lastupdate":"1412637047"},"700105":{"0":"114231","d":"114231","1":"1051","group_d":"1051","2":"700105","item_num":"700105","3":"17","item_qun":"17","4":"1412629575","lastupdate":"1412629575"},"730101":{"0":"114241","d":"114241","1":"1051","group_d":"1051","2":"730101","item_num":"730101","3":"1","item_qun":"1","4":"1412629773","lastupdate":"1412629773"},"710101":{"0":"114251","d":"114251","1":"1051","group_d":"1051","2":"710101","item_num":"710101","3":"2","item_qun":"2","4":"1412629860","lastupdate":"1412629860"},"720401":{"0":"114261","d":"114261","1":"1051","group_d":"1051","2":"720401","item_num":"720401","3":"6","item_qun":"6","4":"1412637047","lastupdate":"1412637047"}},"state":"y","lastupdate":17429,"msg":"y","g_item":{"700201":{"num":700201,"d":"114221","qun":60},"700401":{"num":700401,"d":"114141","qun":798},"710301":{"num":"710301","d":114291,"qun":4}},"item_have_qun":4,"warehouse_now":0,"bill":"add_710301_4_114291","post":{"attr":"group_create_produce","d":"710301","page":"n","id":""}}
+		# SELECT * FROM group_donate WHERE group_d=1051 and  item_num=a                      
+		#                                                        and  kind="product"         
+		#                                                        and  item_need_qun > item_have_qun___
 	}
 
 	#公司貢獻換股票
@@ -632,6 +705,7 @@ class_game_api(){
 
 		local res=$(curlWithParams $url $params);
 		echo $res;
+		# {"msg":"mail_no_bonus"}
 	}
 
 	#安裝傢俱
@@ -678,7 +752,7 @@ class_game_api(){
 		local ddd=$4; #amount
 		local dddd=$5; #? all,
 
-		local params="attr=${attr}&d={d}&dd=${dd}&ddd=${ddd}&dddd=${dddd}&id=${id}";
+		local params="attr=${attr}&d=${d}&dd=${dd}&ddd=${ddd}&dddd=${dddd}&id=${id}";
 
 		local res=$(curlWithParams $url $params);
 		echo $res;
@@ -686,28 +760,68 @@ class_game_api(){
 		# {"state":"add_money_40","list":[{"d":"554851","num":"790521","count":"4","lv":"0","lastupdate":"1412638668","rank":1},{"d":"551021","num":"791121","count":"2","lv":"0","lastupdate":"1412623584","rank":2},{"d":"551061","num":"795302","count":"7","lv":"0","lastupdate":"1412623114","rank":3},{"d":"549221","num":"795201","count":"10","lv":"0","lastupdate":"1412621477","rank":4},{"d":"554401","num":"795303","count":"1","lv":"0","lastupdate":"1412621082","rank":5},{"d":"551001","num":"795301","count":"5","lv":"0","lastupdate":"1412621042","rank":6},{"d":"551041","num":"791521","count":"2","lv":"0","lastupdate":"1412620472","rank":7},{"d":"554391","num":"790571","count":"2","lv":"0","lastupdate":"1412620444","rank":8},{"d":"551031","num":"795511","count":"3","lv":"0","lastupdate":"1412557485","rank":9},{"d":"551051","num":"795404","count":"3","lv":"0","lastupdate":"1412557485","rank":10},{"d":"551081","num":"791221","count":"1","lv":"0","lastupdate":"1412557485","rank":11},{"d":"551091","num":"791421","count":"1","lv":"0","lastupdate":"1412557485","rank":12}],"max_page":2,"now_page":1,"msg":"y"}
 	}
 
+	#交易->個人商品->買入
+	function callApi_market_buy_run(){
+		local url=$(getUrl);
+		local id=$(getUserId);
+		local attr=$1;
+
+		local d=$2; #item_id
+		local dd=$3; #price 收購價
+		local ddd=$4; #amount
+
+		local params="attr=${attr}&d=${d}&dd=${dd}&ddd=${ddd}&id=${id}";
+
+		local res=$(curlWithParams $url $params);
+		echo $res;
+		# {"msg":"y","WordKind":"SendMailY","state":"remain_1_0","bill":"des_money_300","d":2233151,"list_me":"none","list":[{"d":"795911","id":"15741","server":"1","name":"\u9752\u82b1","kind":"1","num":"700401","count":"20","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"},{"d":"796431","id":"34841","server":"1","name":"Yan Jingming","kind":"1","num":"700401","count":"40","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"},{"d":"795921","id":"15741","server":"1","name":"\u9752\u82b1","kind":"1","num":"700401","count":"20","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/04"}],"now_page":1,"max_page":12}
+	}
+
+	#交易->個人商品->賣出
+	function callApi_market_sell_run(){
+		callApi_market_buy_run $@;
+		#  {"msg":"y","state":"remain_0_1","bill":"add_money_0","list_me":{"d":"816031","id":"35171","server":"1","name":"2","kind":"1","num":"700201","count":"1","price":"300","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"10\/09"},"list":"none","now_page":0,"max_page":0}
+	}
+
+	#交易->個人商品->經銷賣出
+	function callApi_market_sell_run_auto(){
+		callApi_market_buy_run $@;
+		# {"msg":"y","state":"remain_0_1","bill":"add_money_0","list_me":{"d":"816071","id":"35171","server":"1","name":"2","kind":"1","num":"700401","count":"1","price":"400","group_d":"0","group_rate":"0","EndSec":"1412869715","state":"y","lastupdate":"10\/09"},"list":[{"d":"750501","id":"30061","server":"1","name":"\u6b7b\u4ea1\u4e4b\u63e1","kind":"0","num":"700401","count":"200","price":"70","group_d":"0","group_rate":"0","EndSec":null,"state":"n","lastupdate":"09\/22"}],"now_page":1,"max_page":1}
+	}
+
 	#商城買
 	function callApi_shop_buy(){
 		local url=$(getUrl);
 		local id=$(getUserId);
 		local attr=$1;
+
 		local d=$2; #item_id 790604
 		local dd=$3; #amount?
+
 		local params="attr=${attr}&d=${d}&dd=${dd}&id=${id}";
 
 		local res=$(curlWithParams $url $params);
 		echo $res;
 	}
 
-	#使用or購買商城物品
+	function callApi_shop_silver_buy(){
+		callApi_shop_buy $@;
+		# {"msg":"y","bill_silver":"des_silver_90","UseCount":1}
+		# {"msg":"no_silver"}
+	}
+
+	#購買+使用or使用 商城物品
 	function callApi_shop_using(){
 		local url=$(getUrl);
 		local id=$(getUserId);
 		local attr=$1;
+
 		local d=$2; #item_id
 		local dd=$3; #buy, use
 		local ddd=$4; #amount 1
-		local params="attr=${attr}&d=${d}&dd=${dd}&ddd=${ddd}&id=${id}";
+		local dddd=$5; #other
+
+		local params="attr=${attr}&d=${d}&dd=${dd}&ddd=${ddd}&dddd=${dddd}&id=${id}";
 
 		local res=$(curlWithParams $url $params);
 		echo $res;
@@ -772,15 +886,19 @@ class_game_api(){
 		local url=$(getUrl);
 		local id=$(getUserId);
 		local attr=$1;
+
 		local d=$2;
 		local page=n;
 
 		local params="attr=${attr}&d=${d}&page=${page}&id=${id}";
 
 		local response=$(curlWithParams $url $params);
+		local err=$?;
 		echo $response;
+		return $err;
 		# {
-		# 	"d":"2240461","msg":"y",
+		# 	"d":"2240461",
+		#	"msg":"y",
 		# 	"proficiency":{"exp":2,"lv":1,"exp_max":25},
 		# 	"WordKind":"SendMailY",
 		# 	"add_item":"",

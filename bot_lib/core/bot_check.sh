@@ -37,25 +37,7 @@ _bot_check_achievements_and_get_reward(){
 		continuepkwin
 		pkwin
 		);
-	####check role_data t_achieve
-	# continuepkwin: "1"
-	# d: "34661"
-	# daybuy: "1"
-	# daysell: "1"
-	# defeatmonster: "1"
-	# foc: "1"
-	# id: "35791"
-	# kno: "1"
-	# lv: "1"
-	# map: "1"
-	# pkwin: "1"
-	# productmoney: "1"
-	# producttp: "1"
-	# qui: "1"
-	# totalbuy: "1"
-	# totalprofit: "1"
-	# totalsell: "1"
-	# vit: "1"
+	#check role_data t_achieve
 	case $method in
 		all)
 		#

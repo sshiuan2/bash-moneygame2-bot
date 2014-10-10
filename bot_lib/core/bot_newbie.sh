@@ -30,7 +30,7 @@ _bot_clear_newbie_notices(){
 }
 
 #公司新手任務
-_bot_run_guild_newbie_mission(){
+_bot_run_newbie_guild_mission(){
 	local api;
 	local res;
 	local err;

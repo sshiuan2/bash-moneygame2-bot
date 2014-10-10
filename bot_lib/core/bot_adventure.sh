@@ -242,6 +242,7 @@ _bot_adventure_event_handle(){
 		*)
 		#
 		echo "unknow sub event";
+		echo "subevent: $subevent";
 		exit 2;
 		;;
 	esac
@@ -252,9 +253,10 @@ _bot_adventure_response_handle(){
 	local response=$1;
 
 	#use jq to parse json.
-	local checker=$(echo $response|$jqPath -e '.msg' 2>/dev/null);
+	local checker=$(echo $response|$jqPath -e ".msg" 2>/dev/null);
 	local err=$?;
 
+	local holder;
 	if [ "$err" == "0" ];then
 		checker=${checker:1:-1};
 	else
@@ -270,12 +272,6 @@ _bot_adventure_response_handle(){
 		#
 		echo $checker;
 
-		_bot_mail_handle;
-		getReport;
-
-		sleep $(getDelay idle);
-
-		reload_config_all;
 		case ${__g[no_tp_handle_method]} in
 			"auto_buy")
 			#
@@ -283,10 +279,21 @@ _bot_adventure_response_handle(){
 			local amount=1;
 			_bot_buy $item_id $amount;
 			;;
+			"stop")
+			#
+			echo "stop bot.";
+			exit 2;
+			;;
 			"nothing")
 			#
 			;;
 		esac
+
+		_bot_mail_handle;
+		getReport;
+
+		sleep $(getDelay idle);
+		reload_config_all;
 
 		;;
 		"y")
@@ -304,6 +311,11 @@ _bot_adventure_response_handle(){
 
 		local sub_event=$(echo $response|$jqPath .key);
 		sub_event=${sub_event:1:-1};
+		if [ "$sub_event" == "" ];then
+			echo "can not get sub event.";
+			echo $response;
+			exit 2;
+		fi
 
 		_bot_adventure_event_handle $sub_event;
 		;;
@@ -311,6 +323,7 @@ _bot_adventure_response_handle(){
 		#
 		echo "unknown error msg";
 		echo checker: $checker;
+		echo response: $response;
 		exit 2;
 		;;
 	esac
@@ -319,5 +332,5 @@ _bot_adventure_response_handle(){
 _bot_run_adventure(){
 	local response;
 	response=$(callEvent adventure_run);
-	_bot_adventure_response_handle $response;
+	_bot_adventure_response_handle "$response";
 }

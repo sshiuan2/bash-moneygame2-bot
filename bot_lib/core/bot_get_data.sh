@@ -1,12 +1,94 @@
-_bot_get_role_data_useful(){
-	#default show useful params.
+
+
+
+_bot_parse_bag_data_to_report(){
 	local jqPath=$(getJqPath);
+	local err;
+
+	local method=$1;
+	local json=$2;
+
+	local t_product_default;
+
+	t_product_default=$(echo $json|$jqPath ".t_product_default");
+	err=$?;
+	if [ $err != 0 ];then
+		echo $json;
+		return $err;
+	fi
+	local temp=$(echo $t_product_default|$jqPath -c ".[]|{d,num,qun}");
+	#  {
+	    #   "d": "2335831",
+	    #   "num": "700201",
+	    #   "id": "13031",
+	    #   "qun": "38",
+	    #   "trade": "n",
+	    #   "lastupdate": "1412759469"
+	# }
+	local items;
+	local item;
+	items=($temp);
+
+	local num;
+	local qun;
+	for item in "${items[@]}";do
+		case $method in
+			simple)
+			#
+			num=$(echo $item|$jqPath ".num");
+			num=${num:1:-1};
+			qun=$(echo $item|$jqPath ".qun");
+			qun=${qun:1:-1};
+			echo $num: ${__item[$num]} x $qun;
+			;;
+			*)
+			#
+			echo $item;
+			;;
+		esac
+	done
+}
+_bot_get_bag_data(){
+	local jqPath=$(getJqPath);
+	local api=role_refresh;
+	local res;
+
+	local show_type=$1;
+
+	res=$(callStandardApi $api);
+	err=$?;
+	if [ $err != 0 ];then
+		echo $res;
+		return $err;
+	fi
+
+	if [ "$show_type" == "" ];then
+		_bot_parse_bag_data_to_report simple "$res";
+	else
+		if [ "$show_type" == "all" ];then
+			pattern='.';
+		fi
+		res=$(echo $res|$jqPath "$pattern");
+		echo $res;
+	fi
+}
+
+_bot_parse_role_data_to_report(){
+	local jqPath=$(getJqPath);
+	local err;
+
 	local result=$1;
 
 	local t_role;
 	t_role=$(echo $result|$jqPath ".t_role");
+	err=$?;
+	if [ $err != 0 ];then
+		echo $result;
+		return $err;
+	fi
 	# local hp=$(echo $t_role|$jqPath ".combat_hp");
 	local d=$(echo $t_role|$jqPath ".d");
+	local id=$(echo $t_role|$jqPath ".id");
 	local money=$(echo $t_role|$jqPath ".money");
 	local gold=$(echo $t_role|$jqPath ".gold");
 	local tp=$(echo $t_role|$jqPath ".tp_now");
@@ -25,7 +107,8 @@ _bot_get_role_data_useful(){
 	echo hp: $hp / $hp_max;
 	echo tp: $tp / $tp_max;
 	echo lv: $lv \($exp / $exp_max\);
-	echo user_id: $d;
+	echo d: $d;
+	echo id: $id;
 }
 
 _bot_get_other_role_data(){
@@ -42,13 +125,13 @@ _bot_get_other_role_data(){
 
 	res=$(callStandardApi $api $user_id);
 	echo $res|$jqPath -C ".$key";
-
 }
 
 _bot_get_role_data(){
 	local jqPath=$(getJqPath);
 	local api=role_data;
 	local res;
+	local err;
 
 	local main_key=$1;
 	local key=$2;
@@ -56,9 +139,14 @@ _bot_get_role_data(){
 	local pattern;
 
 	res=$(callStandardApi $api);
+	err=$?;
+	if [ $err != 0 ];then
+		echo $res;
+		return $err;
+	fi
 
 	if [ "$main_key" == "" ];then
-		_bot_get_role_data_useful "$res";
+		_bot_parse_role_data_to_report "$res";
 	else
 		if [ "$main_key" == "all" ];then
 			pattern='.';
